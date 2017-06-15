@@ -1,4 +1,6 @@
-import { Component, DOM } from "react";
+import { Component, createElement } from "react";
+
+import { PlotlyCharts } from "./PlotlyCharts";
 
 interface WrapperProps {
     class?: string;
@@ -24,7 +26,7 @@ type HeightUnit = "percentageOfWidth" | "percentageOfParent" | "pixels";
 
 class PlotlyChartsContainer extends Component<PlotlyChartsContainerProps, PlotlyChartsContainerState> {
     render() {
-        return DOM.div(null, "Plotly Chart");
+        return createElement(PlotlyCharts);
     }
 
     public static parseStyle(style = ""): {[key: string]: string} {

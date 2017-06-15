@@ -16,16 +16,24 @@ const widgetConfig = {
     resolve: {
         extensions: [ ".ts", ".js", ".json" ],
         alias: {
-            "tests": path.resolve(__dirname, "./tests")
+            "tests": path.resolve(__dirname, "./tests"),
+            "webworkify": "webworkify-webpack",
+            "mapbox-gl": path.resolve("./node_modules/mapbox-gl/dist/mapbox-gl.js")
         }
     },
     module: {
         rules: [
-            { test: /\.ts$/, use: "ts-loader" },
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract({
-                fallback: "style-loader",
-                use: "css-loader!sass-loader"
-            }) }
+            {
+                test: /\.ts$/,
+                use: "ts-loader"
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader!sass-loader"
+                })
+            }
         ]
     },
     devtool: "source-map",
