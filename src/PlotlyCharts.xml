@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.mendix.widget.custom.PlotlyCharts.PlotlyCharts" needsEntityContext="true" offlineCapable="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../xsd/widget.xsd">
+    <name>PlotlyCharts</name>
+    <description>Create any chart you like</description>
+    <icon/>
+    <properties>
+        <property key="width" type="integer" defaultValue="100">
+            <caption>Chart width</caption>
+            <category>Appearance</category>
+            <description>Width of the chart</description>
+        </property>
+        <property key="widthUnit" type="enumeration" defaultValue="percentage">
+            <caption>Width unit</caption>
+            <category>Appearance</category>
+            <description/>
+            <enumerationValues>
+                <enumerationValue key="percentage">Percentage</enumerationValue>
+                <enumerationValue key="pixels">Pixels</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="height" type="integer" defaultValue="75">
+            <caption>Chart height</caption>
+            <category>Appearance</category>
+            <description>Height of the chart</description>
+        </property>
+        <property key="heightUnit" type="enumeration" defaultValue="percentageOfWidth">
+            <caption>Height unit</caption>
+            <category>Appearance</category>
+            <description>'Percentage of width' is the aspect ratio, 'Pixels' is absolute, Warning 'Percentage of parent' only work when parent has a absolute height, else is not displayed</description>
+            <enumerationValues>
+                <enumerationValue key="percentageOfWidth">Percentage of width</enumerationValue>
+                <enumerationValue key="pixels">Pixels</enumerationValue>
+                <enumerationValue key="percentageOfParent">Percentage of Parent</enumerationValue>
+            </enumerationValues>
+        </property>
+    </properties>
+</widget>
