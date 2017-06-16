@@ -33,5 +33,56 @@
                 <enumerationValue key="percentageOfParent">Percentage of Parent</enumerationValue>
             </enumerationValues>
         </property>
+        <property key="barMode" type="enumeration" defaultValue="group">
+            <caption>Bar mode</caption>
+            <category>Appearance</category>
+            <description>Format the bar should appear in</description>
+            <enumerationValues>
+                <enumerationValue key="group">Group</enumerationValue>
+                <enumerationValue key="stack">Stack</enumerationValue>
+                <enumerationValue key="relative">Relative</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="title" type="string" defaultValue="" required="false">
+            <caption>Chart title</caption>
+            <category>Data source</category>
+            <description>Chart title</description>
+        </property>
+        <property key="seriesEntity" type="entity" isPath="yes" pathType="referenceSet">
+            <caption>Series entity</caption>
+            <category>Data source</category>
+            <description>Series entity</description>
+        </property>
+        <property key="seriesNameAttribute" type="attribute" entityProperty="seriesEntity">
+            <caption>Series name attribute</caption>
+            <category>Data source</category>
+            <description>Series name attribute</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="dataEntity" type="entity" isPath="yes" pathType="referenceSet" entityProperty="seriesEntity">
+            <caption>Data entity</caption>
+            <category>Data source</category>
+            <description>Data entity</description>
+        </property>
+        <property key="xValueAttribute" type="attribute" entityProperty="dataEntity">
+            <caption>X value attribute</caption>
+            <category>Data source</category>
+            <description>X value attribute</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="yValueAttribute" type="attribute" entityProperty="dataEntity">
+            <caption>Y value attribute</caption>
+            <category>Data source</category>
+            <description>Y value attribute</description>
+            <attributeTypes>
+                <attributeType name="Integer"/>
+                <attributeType name="Decimal"/>
+                <attributeType name="Long"/>
+            </attributeTypes>
+        </property>
     </properties>
 </widget>
