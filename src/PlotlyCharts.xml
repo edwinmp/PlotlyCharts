@@ -84,5 +84,18 @@
                 <attributeType name="Long"/>
             </attributeTypes>
         </property>
+        <property key="xAxisSortAttribute" type="attribute" entityProperty="dataEntity">
+            <caption>X-axis sort attribute</caption>
+            <category>Data source</category>
+            <description>Attribute to use for sorting the x-axis data</description>
+            <attributeTypes>
+                <attributeType name="Decimal"/>
+                <attributeType name="Long"/>
+                <attributeType name="Integer"/>
+                <attributeType name="String"/>
+                <attributeType name="AutoNumber"/>
+                <attributeType name="DateTime"/>
+            </attributeTypes>
+        </property>
     </properties>
 </widget>

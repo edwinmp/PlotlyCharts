@@ -24,6 +24,7 @@ interface PlotlyChartsContainerProps extends WrapperProps {
     dataEntity: string;
     xValueAttribute: string;
     yValueAttribute: string;
+    xAxisSortAttribute: string;
 }
 
 interface PlotlyChartsContainerState {
@@ -80,24 +81,33 @@ class PlotlyChartsContainer extends Component<PlotlyChartsContainerProps, Plotly
                 mxObjects.forEach(object => {
                     const seriesName = object.get(this.props.seriesNameAttribute) as string;
                     object.fetch(this.props.dataEntity, (values: mendix.lib.MxObject[]) => {
-                        const fetchedData = values.map(value => {
-                            return {
-                                x: value.get(this.props.xValueAttribute) as Datum,
-                                y: parseInt(value.get(this.props.yValueAttribute) as string, 10) as Datum
-                            };
+                        window.mx.data.get({
+                            callback: seriesData => {
+                                const fetchedData = seriesData.map(value => {
+                                    return {
+                                        x: value.get(this.props.xValueAttribute) as Datum,
+                                        y: parseInt(value.get(this.props.yValueAttribute) as string, 10) as Datum
+                                    };
+                                });
+
+                                const series: BarData = {
+                                    name: seriesName,
+                                    type: "bar",
+                                    x: fetchedData.map(value => value.x),
+                                    y: fetchedData.map(value => value.y)
+                                };
+
+                                const data = this.state.data ? this.state.data.slice() : [];
+                                data.push(series);
+
+                                this.setState({ data });
+                            },
+                            error: error => console.log(error),
+                            filter: {
+                                sort: [ [ this.props.xAxisSortAttribute, "asc" ] ]
+                            },
+                            guids: values.map(value => value.getGuid())
                         });
-
-                        const series: BarData = {
-                            name: seriesName,
-                            type: "bar",
-                            x: fetchedData.map(value => value.x),
-                            y: fetchedData.map(value => value.y)
-                        };
-
-                        const data = this.state.data ? this.state.data.slice() : [];
-                        data.push(series);
-
-                        this.setState({ data });
                     });
                 });
             });
