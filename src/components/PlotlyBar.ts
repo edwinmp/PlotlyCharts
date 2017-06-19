@@ -44,7 +44,6 @@ class PlotlyBar extends Component<PlotlyBarProps, {}> {
 
     private renderChart(data?: BarData[]) {
         if (this.plotlyNode) {
-            console.log(this.props.layout);
             this.Plotly.newPlot(this.plotlyNode, data && data.length ? data : this.data, this.props.layout);
         }
     }

@@ -36,6 +36,7 @@ type HeightUnit = "percentageOfWidth" | "percentageOfParent" | "pixels";
 
 class PlotlyChartsContainer extends Component<PlotlyChartsContainerProps, PlotlyChartsContainerState> {
     private subscriptionHandles: number[] = [];
+    private data: BarData[] = [];
 
     constructor(props: PlotlyChartsContainerProps) {
         super(props);
@@ -77,8 +78,9 @@ class PlotlyChartsContainer extends Component<PlotlyChartsContainerProps, Plotly
 
     private fetchAndProcessData(mxObject?: mendix.lib.MxObject) {
         if (mxObject && this.props.seriesEntity) {
-            mxObject.fetch(this.props.seriesEntity, (mxObjects: mendix.lib.MxObject[]) => {
-                mxObjects.forEach(object => {
+            mxObject.fetch(this.props.seriesEntity, (series: mendix.lib.MxObject[]) => {
+                const seriesCount = series.length;
+                series.forEach((object, index) => {
                     const seriesName = object.get(this.props.seriesNameAttribute) as string;
                     object.fetch(this.props.dataEntity, (values: mendix.lib.MxObject[]) => {
                         window.mx.data.get({
@@ -90,17 +92,14 @@ class PlotlyChartsContainer extends Component<PlotlyChartsContainerProps, Plotly
                                     };
                                 });
 
-                                const series: BarData = {
+                                const barData: BarData = {
                                     name: seriesName,
                                     type: "bar",
                                     x: fetchedData.map(value => value.x),
                                     y: fetchedData.map(value => value.y)
                                 };
 
-                                const data = this.state.data ? this.state.data.slice() : [];
-                                data.push(series);
-
-                                this.setState({ data });
+                                this.addSeries(barData, seriesCount === index + 1);
                             },
                             error: error => console.log(error),
                             filter: {
@@ -111,6 +110,13 @@ class PlotlyChartsContainer extends Component<PlotlyChartsContainerProps, Plotly
                     });
                 });
             });
+        }
+    }
+
+    private addSeries(series: BarData, isFinal = false) {
+        this.data.push(series);
+        if (isFinal) {
+            this.setState({ data: this.data });
         }
     }
 
